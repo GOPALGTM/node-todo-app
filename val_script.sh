@@ -1,6 +1,7 @@
 #!/bin/bash
 #-e TRIVY_GITHUB_TOKEN=$token: Sets an environment variable TRIVY_GITHUB_TOKEN with the provided token value. This is used to access private GitHub repositories during vulnerability scanning.
-trivy -q image --exit-code 1 --severity CRITICAL node-app:10
+IMAGE_NAME=$1
+trivy -q image --exit-code 1 --severity CRITICAL ${IMAGE_NAME}
 
     # Trivy scan result processing
     exit_code=$?
