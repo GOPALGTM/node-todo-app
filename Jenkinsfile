@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build'){
             steps {
-                echo "Building the Image -"
+                echo "Building the Image"
                 sh "sudo docker build -t todo-app ."
             }
         }
