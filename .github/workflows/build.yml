@@ -10,7 +10,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Print current directory
-        run: pwd
+      - name: Docker Login
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build Docker image
-        run: docker build . -t node-todo
+        run: docker build . -t gopalgtm001/node-todo:latest
+      - name: Build Docker image
+        run: docker push gopalgtm001/node-todo:latest
+      - name: run Docker image
+        run: docker run -d -p 8000:8000 node-todo
+            
