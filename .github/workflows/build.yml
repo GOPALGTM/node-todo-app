@@ -1,12 +1,12 @@
-name: Build,Analyze,scan
+name: Build
 on:
   push:
     branches:
       - main
 jobs:
   deploy:
-   needs: build-analyze-scan
+   name: Build
    runs-on: [self-hosted]
    steps:
       - name: docker show conatiners
-        run: docker ps
+        run: docker build . -t node-todo
