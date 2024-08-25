@@ -63,7 +63,7 @@ jobs:
         config:
           platform: linux
           image_resource:
-            type: registry-image
+            type: registry-image-test
             source:
               repository: busybox
           inputs:
