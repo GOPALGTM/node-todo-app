@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Deploy'){
             steps {
-                echo "Deploying the application"
+                echo "Deploying the applications"
                 sh "sudo docker-compose down"
                 sh "sudo docker-compose up -d --build"
                 
