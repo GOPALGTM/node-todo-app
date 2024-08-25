@@ -1,0 +1,76 @@
+resources:
+  - name: node-todo-repo
+    type: git
+    source:
+      uri: https://github.com/GOPALGTM/node-todo-app.git
+      branch: main
+
+jobs:
+  - name: build-and-test
+    plan:
+      - get: node-todo-repo
+        trigger: true   # Triggers on any changes to 'main'
+      - task: build-image
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: docker
+              tag: "20.10.8"
+          inputs:
+            - name: node-todo-repo
+          run:
+            path: sh
+            args:
+              - -exc
+              - |
+                # Check Docker version
+                docker --version
+                docker info
+                
+                # Navigate to the repository directory
+                cd node-todo-repo
+                usermod -aG docker $USER
+                newgrp docker                
+                # Build the Docker image
+                docker build -t node-todo-app .
+      - task: run-tests
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: node
+              tag: "14"
+          inputs:
+            - name: node-todo-repo
+          run:
+            path: sh
+            args:
+              - -exc
+              - |
+                cd node-todo-repo
+                npm install
+                npm test
+
+  - name: deploy
+    plan:
+      - get: node-todo-repo
+        trigger: true   # Triggers on any changes to 'main'
+      - task: deploy-app
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: busybox
+          inputs:
+            - name: node-todo-repo
+          run:
+            path: sh
+            args:
+              - -exc
+              - |
+                echo "Deploying application..."
+                # Add your deployment script or commands here
