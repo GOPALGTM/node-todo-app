@@ -16,7 +16,7 @@ pipeline {
         }
         stage('push to dockerhub'){
             steps {
-                echo "Pushing the code too dockerhub"
+                echo "Pushing the code to dockerhub"
                 withCredentials([usernamePassword(credentialsId:"dockerhub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                 sh "sudo docker tag todo-app ${env.dockerHubUser}/node-app:latest"
                 sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
