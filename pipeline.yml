@@ -25,7 +25,7 @@ jobs:
             args:
               - -exc
               - |
-                echo "docker steps"
+                echo "build applications..."
                 # Check Docker version
                 docker --version
                 docker info
@@ -73,5 +73,5 @@ jobs:
             args:
               - -exc
               - |
-                echo "Deploying application..."
+                echo "Deploying applicationsss..."
                 # Add your deployment script or commands here
