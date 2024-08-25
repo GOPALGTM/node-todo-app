@@ -25,16 +25,17 @@ jobs:
             args:
               - -exc
               - |
+                echo "docker steps"
                 # Check Docker version
                 docker --version
                 docker info
-                
+                  
                 # Navigate to the repository directory
                 cd node-todo-repo
-                usermod -aG docker $USER
-                newgrp docker                
+                
                 # Build the Docker image
                 docker build -t node-todo-app .
+
       - task: run-tests
         config:
           platform: linux
