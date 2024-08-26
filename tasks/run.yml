@@ -1,0 +1,26 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: docker
+    tag: "20.10.8"
+
+inputs:
+  - name: node-todo-repo
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      # Check Docker version
+      docker --version
+      docker info
+      
+      # Navigate to the repository directory
+      cd node-todo-repo
+      
+      # Build the Docker image
+      docker build -t node-todo-app .
