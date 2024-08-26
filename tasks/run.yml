@@ -16,8 +16,8 @@ run:
     - -exc
     - |
       # Check Docker version
+      echo "docker build"
       docker --version
-      docker info
       
       # Navigate to the repository directory
       cd node-todo-repo
