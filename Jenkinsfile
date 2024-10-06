@@ -11,7 +11,7 @@ pipeline {
         stage('Build'){
             steps {
                 echo "Building the Image- "
-                sh "sudo docker build -t todo-app"
+                sh "sudo docker build -t todo-app ."
             }
         }
         stage('push to dockerhub'){
